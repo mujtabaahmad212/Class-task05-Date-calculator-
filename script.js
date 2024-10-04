@@ -1,27 +1,40 @@
-function culcolateTheDate() {
-    const startDateInput = document.getElementById('startDate');
-    const StartDate = new Date(startDateInput.value)
-    const currentDate = new Date ();
 
-    const years = currentDate.getFullYear() - StartDate.getFullYear();
-    const months = currentDate.getMonth( ) - StartDate.getMonth();
-    const days = currentDate.getDay()  -StartDate.getDay();
+function calculateAge(event) {
+    event.preventDefault();
+    var birthday = document.getElementById("dob").value;
+var years = document.getElementById("years")
+var months = document.getElementById("months")
+var days = document.getElementById("days")
 
-    if ( days < 0){
-        months--;
-        const daysInlastmonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 0).getDate();
-        days += daysInlastmonth;
-        
-        
+if(birthday){
+    var today = new Date();
+    var birthDate = new Date(birthday);
+    var year = today.getFullYear() - birthDate.getFullYear();
+    var month = today.getMonth() - birthDate.getMonth();
+    var day = today.getDate() - birthDate.getDate();
     
-}
-if (months <0){+-
+   
+    if (month < 0 || (month === 0 && day < 0)) {
+        year--;
+        month += 12;
+    }
 
-    years--;
-    months += 12;
+    if (day < 0) {
+        month--;
+        var previousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        day += previousMonth; 
+    }
+    
+    
 
-}
-document.getElementById('years').textContent = years;
-document.getElementById('months').textContent = months;
-document.getElementById('days').textContent = days;
-}
+    
+    years.innerHTML = year + " years";
+    months.innerHTML = month + " months";
+    days.innerHTML = day + " days";
+    
+    }else{
+    alert("Enter a valid date");
+    }
+
+
+}  
